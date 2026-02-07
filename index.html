@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro IP Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="screen">
+            <h1>⚡ IP Calculator ⚡</h1>
+            <p class="subtitle">~ Network Configuration ~</p>
+            
+            <div class="two-columns">
+                <div class="left-column">
+                    <div class="form-group">
+                        <label for="ipAddress">IP Address:</label>
+                        <input type="text" id="ipAddress" placeholder="192.168.1.1" maxlength="15">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subnetMask">Subnet Mask:</label>
+                        <input type="text" id="subnetMask" placeholder="255.255.255.0 or /24" maxlength="18">
+                        <small class="hint">Format: 255.255.255.0 or /24</small>
+                    </div>
+                    
+                    <button id="calculateBtn" class="retro-button">
+                        <span>[ CALCULATE ]</span>
+                    </button>
+                </div>
+                
+                <div class="right-column">
+                    <div id="result" class="result"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 1995 - Retro Network Tools</p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
