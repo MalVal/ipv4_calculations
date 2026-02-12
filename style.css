@@ -1,10 +1,17 @@
-/* Style rétro années 90 */
+/* ============================================================================
+   RETRO IP CALCULATOR - Style Sheet
+   ============================================================================ */
+
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
 }
 
 body {
@@ -18,8 +25,12 @@ body {
     padding: 20px;
 }
 
+/* ============================================================================
+   LAYOUT
+   ============================================================================ */
+
 .container {
-    max-width: 1000px;
+    max-width: 1100px;
     width: 100%;
 }
 
@@ -28,19 +39,17 @@ body {
     border: 8px outset #808080;
     border-radius: 10px;
     padding: 30px;
-    box-shadow: 
+    box-shadow:
         0 0 20px rgba(0, 255, 0, 0.3),
         inset 0 0 30px rgba(0, 255, 0, 0.1);
     position: relative;
 }
 
+/* CRT scanlines overlay */
 .screen::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: repeating-linear-gradient(
         0deg,
         rgba(0, 255, 0, 0.03) 0px,
@@ -50,33 +59,14 @@ body {
     );
     pointer-events: none;
     border-radius: 5px;
-}
-
-h1 {
-    font-size: 3em;
-    text-align: center;
-    text-shadow: 0 0 8px #00ff00;
-    margin-bottom: 10px;
-    letter-spacing: 3px;
-}
-
-.subtitle {
-    text-align: center;
-    font-size: 1.5em;
-    color: #00ffff;
-    margin-bottom: 30px;
-    text-shadow: 0 0 5px #00ffff;
-}
-
-.form-group {
-    margin-bottom: 25px;
+    z-index: 1;
 }
 
 .two-columns {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 320px 1fr;
     gap: 30px;
-    align-items: start;
+    align-items: stretch;
 }
 
 .left-column {
@@ -84,9 +74,72 @@ h1 {
     flex-direction: column;
 }
 
+/* Right column is a fixed-height scrollable panel */
 .right-column {
     display: flex;
     flex-direction: column;
+    min-height: 0;
+}
+
+/* ============================================================================
+   HEADER
+   ============================================================================ */
+
+h1 {
+    font-size: 3em;
+    text-align: center;
+    text-shadow: 0 0 8px #00ff00;
+    margin-bottom: 6px;
+    letter-spacing: 3px;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 1.5em;
+    color: #00ffff;
+    margin-bottom: 28px;
+    text-shadow: 0 0 5px #00ffff;
+}
+
+/* ============================================================================
+   FORM
+   ============================================================================ */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+label {
+    display: block;
+    font-size: 1.4em;
+    margin-bottom: 6px;
+    color: #ffff00;
+    text-shadow: 0 0 5px #ffff00;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    font-family: 'VT323', monospace;
+    font-size: 1.7em;
+    background: #001a00;
+    border: 4px inset #808080;
+    color: #00ff00;
+    outline: none;
+    border-radius: 5px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+    transition: background 0.2s;
+}
+
+input[type="text"]:focus {
+    background: #002600;
+    box-shadow:
+        inset 0 0 10px rgba(0, 0, 0, 0.8),
+        0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+input[type="text"]::placeholder {
+    color: #006600;
 }
 
 .hint {
@@ -97,41 +150,9 @@ h1 {
     text-shadow: 0 0 3px #00ffff;
 }
 
-label {
-    display: block;
-    font-size: 1.5em;
-    margin-bottom: 8px;
-    color: #ffff00;
-    text-shadow: 0 0 5px #ffff00;
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    font-family: 'VT323', monospace;
-    font-size: 1.8em;
-    background: #001a00;
-    border: 4px inset #808080;
-    color: #00ff00;
-    outline: none;
-    border-radius: 5px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
-}
-
-input[type="text"]:focus {
-    background: #002600;
-    box-shadow: 
-        inset 0 0 10px rgba(0, 0, 0, 0.8),
-        0 0 10px rgba(0, 255, 0, 0.5);
-}
-
-input[type="text"]::placeholder {
-    color: #006600;
-}
-
 .retro-button {
     width: 100%;
-    padding: 15px;
+    padding: 14px;
     font-family: 'VT323', monospace;
     font-size: 2em;
     background: linear-gradient(180deg, #c0c0c0 0%, #808080 100%);
@@ -139,7 +160,7 @@ input[type="text"]::placeholder {
     color: #000000;
     cursor: pointer;
     border-radius: 5px;
-    margin-top: 20px;
+    margin-top: auto;
     text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
     transition: all 0.1s;
 }
@@ -156,62 +177,238 @@ input[type="text"]::placeholder {
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
+/* ============================================================================
+   RESULT PANEL — fixed height, scrollable
+   ============================================================================ */
+
 .result {
-    padding: 20px;
     background: #001a00;
     border: 4px inset #808080;
-    min-height: 300px;
-    font-size: 1.5em;
-    line-height: 1.6;
     border-radius: 5px;
-    display: none;
+    overflow-y: auto;
+    height: 520px;
+    /* Custom scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #00ff00 #001a00;
 }
 
-.result.show {
-    display: block;
-    animation: flicker 0.3s;
+.result::-webkit-scrollbar       { width: 8px; }
+.result::-webkit-scrollbar-track { background: #001a00; }
+.result::-webkit-scrollbar-thumb { background: #005500; border-radius: 4px; }
+.result::-webkit-scrollbar-thumb:hover { background: #00aa00; }
+
+/* ============================================================================
+   PLACEHOLDER (shown before first calculation)
+   ============================================================================ */
+
+.result-placeholder {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.placeholder-logo {
+    text-align: center;
+    opacity: 0.6;
+}
+
+.logo-circle {
+    width: 100px;
+    height: 100px;
+    border: 3px solid #00ff00;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+.logo-icon {
+    font-size: 3em;
+    line-height: 1;
+}
+
+.logo-text {
+    font-size: 1.6em;
+    letter-spacing: 4px;
+    color: #00ff00;
+    text-shadow: 0 0 8px #00ff00;
+    margin-bottom: 12px;
+}
+
+.logo-sub {
+    font-size: 1.15em;
+    color: #006600;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.logo-blink {
+    font-size: 1.5em;
+    color: #00ff00;
+    animation: blink 1s infinite;
+}
+
+/* ============================================================================
+   RESULT SECTIONS
+   ============================================================================ */
+
+.result-section {
+    padding: 14px 18px;
+    border-bottom: 1px solid #003a00;
+}
+
+.result-section:last-child {
+    border-bottom: none;
+}
+
+.result-section-title {
+    font-size: 1.1em;
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #005500;
+}
+
+/* ============================================================================
+   RESULT TABLE
+   ============================================================================ */
 
 .result-table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 1.4em;
 }
 
 .result-table td {
-    padding: 8px 0;
-    vertical-align: top;
+    padding: 3px 0;
+    vertical-align: middle;
 }
 
 .result-table .label {
     color: #ffff00;
-    text-shadow: 0 0 5px #ffff00;
-    padding-right: 10px;
+    text-shadow: 0 0 4px #ffff00;
+    padding-right: 12px;
+    white-space: nowrap;
+    width: 1%;
 }
 
-.result-table .value {
-    color: #00ff00;
-    text-shadow: 0 0 5px #00ff00;
+.result-table .value           { color: #00ff00; text-shadow: 0 0 4px #00ff00; }
+.result-table .value.highlight { color: #ffffff; text-shadow: 0 0 6px #ffffff; }
+.result-table .value.cyan      { color: #00ffff; text-shadow: 0 0 4px #00ffff; }
+.result-table .value.orange    { color: #ffaa00; text-shadow: 0 0 4px #ffaa00; }
+
+/* ============================================================================
+   BINARY VIEW
+   ============================================================================ */
+
+.binary-legend {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 10px;
+    font-size: 1.1em;
 }
+
+.legend-item { display: flex; align-items: center; gap: 5px; }
+
+.legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+.binary-row {
+    font-size: 1.2em;
+    line-height: 2;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.binary-row .label {
+    color: #ffff00;
+    text-shadow: 0 0 4px #ffff00;
+    padding-right: 10px;
+    display: inline-block;
+    min-width: 60px;
+}
+
+.binary-block        { display: inline-block; letter-spacing: 1px; }
+.bit-network         { color: #ff4444; text-shadow: 0 0 4px #ff4444; }
+.bit-subnet          { color: #ffaa00; text-shadow: 0 0 4px #ffaa00; }
+.bit-host            { color: #00ff00; text-shadow: 0 0 4px #00ff00; }
+.bit-sep             { color: #555555; margin: 0 3px; }
+
+/* ============================================================================
+   SUBNET LIST
+   ============================================================================ */
+
+.subnet-list { font-size: 1.25em; }
+
+.subnet-list-row {
+    display: grid;
+    grid-template-columns: 36px 1fr 1fr;
+    padding: 2px 0;
+    border-bottom: 1px dashed #003300;
+}
+
+.subnet-list-row:last-child { border-bottom: none; }
+
+.subnet-list-row.current {
+    color: #ffffff;
+    text-shadow: 0 0 6px #ffffff;
+    background: #002200;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin: 1px 0;
+}
+
+.subnet-list-row .sn-num          { color: #555; }
+.subnet-list-row.current .sn-num  { color: #888; }
+
+.subnet-more {
+    color: #555555;
+    font-size: 1.1em;
+    text-align: center;
+    padding-top: 6px;
+}
+
+/* ============================================================================
+   ERROR
+   ============================================================================ */
+
+.error-msg {
+    padding: 20px;
+    font-size: 1.5em;
+    color: #ff0000;
+    text-shadow: 0 0 10px #ff0000;
+}
+
+/* ============================================================================
+   ANIMATIONS
+   ============================================================================ */
 
 @keyframes flicker {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0.8; }
+    50%       { opacity: 0.85; }
 }
+
+@keyframes blink {
+    0%, 49%  { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+/* ============================================================================
+   FOOTER
+   ============================================================================ */
 
 .footer {
     text-align: center;
-    margin-top: 20px;
-    font-size: 1.3em;
+    margin-top: 16px;
+    font-size: 1.2em;
     color: #ffffff;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
-}
-
-/* Animation de curseur clignotant */
-@keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-}
-
-input[type="text"]:focus::after {
-    animation: blink 1s infinite;
 }
