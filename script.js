@@ -446,7 +446,7 @@ function renderSubnetList(networkBytes, maskBytes, subnetNumber, totalSubnets, c
     let html = '<div class="subnet-list">';
 
     const showCount = Math.min(totalSubnets, MAX_SHOW);
-    for (let s = 0; s < showCount; s++) {
+    for (let s = 1; s < showCount+1; s++) {
         const netInt  = (classNetworkInt + s * blockSize) >>> 0;
         const bcastInt = (netInt + blockSize - 1) >>> 0;
 
